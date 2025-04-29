@@ -25,34 +25,29 @@ public class LinkList
 	public Link find(Card cardToFind)      // find link with given key
 	{                           // (assumes non-empty list)
 		Link current = first;              // start at 'first'
-		while(!current.equals(cardToFind))        // while no match,
+		while(current != null && !current.cardLink.equals(cardToFind))        // while no match,
 		{
-			if(current.next == null)        // if end of list,
-				return null;                 // didn't find it
-			else                            // not end of list,
-				current = current.next;      // go to next link
+			current = current.next;      // go to next link
 		}
-		return current;                    // found it
+		return current;                    // found it or null if not found
 	}
 	//-------------------------------------------------------------
 	public Link delete(Card cardToFind)    // delete link with given key
 	{                           // (assumes non-empty list)
 		Link current = first;              // search for link
-		Link previous = first;
-		while(!current.equals(cardToFind))
+		Link previous = null;
+		while(current != null && !current.cardLink.equals(cardToFind))
 		{
-			if(!current.equals(cardToFind))
-				return null;                 // didn't find it
-			else
-			{
-				previous = current;          // go to next link
-				current = current.next;
-			}
-		}                               // found it
-		if(current.equals(cardToFind))               // if first link,
-			first = first.next;             //    change first
+			previous = current;          // go to next link
+			current = current.next;
+		}
+		if(current == null)               // didn't find it
+			return null;
+
+		if(previous == null)              // if first link,
+			first = first.next;           //    change first
 		else                               // otherwise,
-			previous.next = current.next;   //    bypass it
+			previous.next = current.next; //    bypass it
 		return current;
 	}
 	//-------------------------------------------------------------
@@ -72,11 +67,13 @@ public class LinkList
 	//-------------------------------------------------------------
 	public Card getFirst()    // delete link with given key
 	{                           // (assumes non-empty list)
-		Link current = first;              // search for link
+		if (first == null) {
+			return null; // return null if list is empty
+		}
+		Link current = first;              // get first link
 		first = first.next;             //    change first
 		return current.cardLink;
 	}
-
 }  // end class LinkList
 ////////////////////////////////////////////////////////////////
 /*class LinkedLists

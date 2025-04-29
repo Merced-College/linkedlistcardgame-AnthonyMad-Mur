@@ -86,6 +86,6 @@ public class Card {
     // toString method for printing the card
     @Override
     public String toString() {
-        return cardName + " of " + cardSuit + " (Value: " + cardValue + ", Picture: " + cardPic + ")";
+        return cardName + " of " + cardSuit + " (Value: " + cardValue + ")";
     }
 }
